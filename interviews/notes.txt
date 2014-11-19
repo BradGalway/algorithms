@@ -1,0 +1,12 @@
+int * const a; - cannot change value of a but can change pointer
+const int * a; - can chance value but not pointer
+static member variables - only defined once (all objects have the same value for this member). You
+can even access it without instantiating an object. The same thing goes for static methods.
+static variables - someone from outside the file can use it
+static functions - only functions within the file can use it
+
+Dynamic programming:
+
+- Generally you have a starting state (or more than one) and you make decisions
+  based on calculations of passed states.
+- For the least coin problem, the states are all possible values of the combination of coins
