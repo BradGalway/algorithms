@@ -5,15 +5,22 @@
 #include <algorithm>
 using namespace std;
 
+/*
+Problem: https://www.hackerrank.com/challenges/even-tree
+*/
+
+// Made my own custom tree of "nodes". Every node knows the size of its subtree (number of nodes in
+// children branches + itself).
 class node{
     int val;
   public:
     int sizeOfSubtree;
     node( int v ):sizeOfSubtree( 1 ), val( v ){}
-    int calculateSizeOfSubtree( node *vertices[], vector<int> adjacencyList[] );
+    int calculateSizeOfSubtree( node *vertices[], vector<int> adjacencyList[] ); // Used for calculating initial size of subtrees.
     int split( node *vertices[], vector<int> adjacencyList[]);
 };
 
+// Recursively call size function on all children adding sizes to your own.
 int node::calculateSizeOfSubtree( node *vertices[], vector<int> adjacencyList[] ){
     sizeOfSubtree = 1;
     for( int i = 0; i < adjacencyList[val].size(); i++ ){
@@ -25,7 +32,8 @@ int node::calculateSizeOfSubtree( node *vertices[], vector<int> adjacencyList[] 
 int node::split( node *vertices[], vector<int> adjacencyList[] ){
 	if( sizeOfSubtree == 1 ) return 0;
 	int splits = 0;
-	for( int i = 0; i < adjacencyList[val].size(); i++ ){
+	for( int i = 0; i < adjacencyList[val].size(); i++ ){ // Go through each neighbour
+		// If neighbour subtree is an even size, break it off from me and recurse on it.
 		if( vertices[adjacencyList[val][i]]->sizeOfSubtree % 2 == 0 ){
 			splits += vertices[adjacencyList[val][i]]->split( vertices, adjacencyList );
 			sizeOfSubtree -= vertices[adjacencyList[val][i]]->sizeOfSubtree;
@@ -33,6 +41,7 @@ int node::split( node *vertices[], vector<int> adjacencyList[] ){
 			i--;
 			splits++;
 		}
+		// If not, just recurse on it.
 		else{
 			splits += vertices[adjacencyList[val][i]]->split( vertices, adjacencyList );
 		}	
@@ -60,9 +69,9 @@ int main() {
         node *n = new node( i );
         vertices[i] = n;
     }
-    int root = 0;
+    int root = 0; // I'm gonna want to start on the root node.
     int max = -1;
-    for( int i = 0; i < numVertices; i++ ){
+    for( int i = 0; i < numVertices; i++ ){ // Find root by finding the node with the max subtree size
         temp = vertices[i]->calculateSizeOfSubtree( vertices, adjacencyList );
 	if( temp > max ){
 		max = temp;
@@ -70,7 +79,7 @@ int main() {
         }
     }
 
-    cout << vertices[root]->split( vertices, adjacencyList ) << endl;
+    cout << vertices[root]->split( vertices, adjacencyList ) << endl; // Begin spit
 
     return 0;
 }

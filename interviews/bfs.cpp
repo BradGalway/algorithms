@@ -3,6 +3,11 @@
 #include <vector>
 #include <stack>
 
+// Here I built a depth-first search algorithm. It's a slightly more powerful/expressive version
+// as I've actually made a class "Vertex" as opposed to just using ints. This enables me discover
+// things about the graph itself. 
+
+// Note to self: make a breadth-first search after.
 using namespace std;
 
 enum Colour{
@@ -18,27 +23,33 @@ class Vertex {
 	int discoveryTime;
 };
 
-vector< Vertex> nodes;
+
+// I keep track of the nodes themselves in a vector and neighbours in an adjacency list.
+vector< Vertex > nodes;
 vector< vector<int> > AdjacencyList;
-stack<int> path;
+stack<int> path; // For tracking the path taken to get to the node. Only useful for DFS.
+queue< Vertex > toSearch; // For later use when making the BFS.
 
 // edit this to build path
-bool BFS( Vertex *start,int v ){
+bool DFS( Vertex *start,int v ){
 	path.push( start->index );
-	if( start->index == v ){
+	if( start->index == v ){ // Found!
 		return true;
 	}
 	start->colour = Grey;
+	// I'm uncertain if this for loop is actually what DFS is supposed to do. I'm assuming it
+	// checks all neighbours before continuing up the branch.
 	for( int i = 0; i < AdjacencyList[start->index].size(); i++ ){
-		if( nodes[AdjacencyList[start->index][i]].colour == White && AdjacencyList[start->index][i] == v ){
+		if( nodes[AdjacencyList[start->index][i]].colour == White && AdjacencyList[start->index][i] == v ){ // Found! 
 			path.push( v );
 			return true;
 		}
 	}
 	start->colour = Black;
+	// Continue up each branch
 	for( int i = 0; i < AdjacencyList[start->index].size(); i++ ){
 		if( nodes[ AdjacencyList[start->index][i] ].colour == White ){
-			return BFS( &nodes[AdjacencyList[start->index][i]], v );
+			return DFS( &nodes[AdjacencyList[start->index][i]], v );
 		}
 	}
 	path.pop();
@@ -56,6 +67,7 @@ int main(){
 
 	int numEdges;
 	for( ;; ){
+		// Make the vertex and push it onto the vector
 		Vertex node;
 		*infile >> node.index;
 		node.colour = White;
@@ -65,6 +77,7 @@ int main(){
 		if( infile->fail() )
 			break;
 
+		// What are the neighbours?
 		vector< int > neighbours;
 		int temp;
 		*infile >> numEdges;
@@ -75,8 +88,8 @@ int main(){
 		AdjacencyList.push_back( neighbours );			
 	}
 
-	for( int i = 1; i < nodes.size(); i++ ){
-		if( BFS( &(nodes[0]), i ) ){
+	for( int i = 1; i < nodes.size(); i++ ){ // Search for the nodes that reachable by the first vertex inputted
+		if( DFS( &(nodes[0]), i ) ){
 			cout << "The node was found" << endl;
 			int size = path.size();
 			for( int j = 0; j < size; j++ ){
@@ -88,9 +101,11 @@ int main(){
 		else{
 			cout << "The node was not found" << endl;
 		}
+		// Reset all the nodes
 		for( int j = 0; j < nodes.size(); j++ ){
 			nodes[j].colour = White;
 		}
+		// Empty the path stack
 		for( int j = 0; j < path.size(); j++ ){
 			path.pop();
 		}

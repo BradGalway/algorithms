@@ -1,8 +1,9 @@
 #include <iostream>
 #include <fstream>
 #include <string>
-
 using namespace std;
+
+// Self-explanatory
 
 int main(int argc, char *argv[]){
 	string str = argv[1];
@@ -14,5 +15,5 @@ int main(int argc, char *argv[]){
 		}
 	}
 	cout << "Palindrome" << endl;
-	return true;
+	return 0;
 }

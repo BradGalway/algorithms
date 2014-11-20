@@ -6,6 +6,13 @@
 
 using namespace std;
 
+/* Problem:
+You have a vector of strings and we need to send them over the internet.
+How can we send them such that when we get the message we can reconstruct the original vector?
+*/
+
+// The method is to have the length of the string followed by a dot.
+// Example: {Brad, Mathew} -> 4.Brad6.Mathew
 string serialize( vector< string > strings ){
 	string serialized = "";
 	for( int i = 0; i < strings.size(); i++ ){
@@ -18,12 +25,13 @@ string serialize( vector< string > strings ){
 	return serialized;
 }
 
+// The only trick here is to interpret the character lengths as numerical.
 vector<string> deserialize( string serialized ){
 	vector< string > deserialized;
 	for( int i = 0; i < serialized.length(); i++ ){
 		string s;
 		int length = 0;
-		for( ;; i++ ){
+		for( ;; i++ ){ // Interpret the length
 			if( serialized[i] == '.' ){
 				i++;
 				break;
@@ -31,16 +39,17 @@ vector<string> deserialize( string serialized ){
 			length *= 10;
 			length += atoi( &serialized[i] );
 		}
-		for( int j = 0; j < length; j++, i++ ){
+		for( int j = 0; j < length; j++, i++ ){// We know the length, just put it into its own string
 			s += serialized[i];
 		}
 		deserialized.push_back( s );
-		i--;
+		i--; // Needed because of the i++ in the look signature
 	}
 	return deserialized;
 }
 
 int main(){
+	// Example vector
 	vector< string > strings;
 	strings.push_back( "bra" );
 	strings.push_back( "dl" );	
