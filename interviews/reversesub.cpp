@@ -1,6 +1,15 @@
 #include <iostream>
 using namespace std;
 
+/*
+Problem: You have a string consisting of the lower characters 'a' and 'b'.
+You want to reverse the substring in such a way that will result in the "largest"
+string. Example: aaabbab -> [bbaaa]ab
+*/
+
+/*
+Solution: I used a bit of dynamic programming here but I really didn't need to.
+*/
 int main(int argc, char *argv[]){
 
 	if( argc != 2 ){
@@ -10,7 +19,7 @@ int main(int argc, char *argv[]){
 	string s = argv[1];
 	int b = -1;
 	
-	for( int i = 0; i < s.length(); i++ ){
+	for( int i = 0; i < s.length(); i++ ){ // Find location of first 'b'
 		if( s[i] == 'b' ){
 			b = i;
 			break;
