@@ -10,6 +10,7 @@ string. Example: aaabbab -> [bbaaa]ab
 /*
 Solution: I used a bit of dynamic programming here but I really didn't need to.
 */
+// Just go backwards through the array and find the longest continuous string of 'b's. 
 int main(int argc, char *argv[]){
 
 	if( argc != 2 ){

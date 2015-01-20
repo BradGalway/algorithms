@@ -9,7 +9,7 @@ Problem: Find the longest palindrome substring
 
 // This is an n^2 solution. Basically it just goes through every character, then checks to the left and right
 // until it finds characters that don't match or reaches the end. Note that it also does "pairs" of characters.
-// I.e aba vs abba. One will check be then its neighbours and the other will check bb and then its neighbours.
+// I.e aba vs abba. One will check b then its neighbours and the other will check bb and then its neighbours.
 int main( int argc, char *argv[] ){
         string str = argv[1];
 	int longest = 1;

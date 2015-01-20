@@ -7,29 +7,34 @@ using namespace std;
 Problem: Implement heaps!
 */
 
-// Used for extracting the min.
+// Used for extracting the min. The idea is that after deleting the top node, you've
+// replaced it with the last node. You now need to do comparisons all the way down
+// until it gets back to a place where it keeps the property of a heap
 void bubbleDown( vector< int > &heap, int index ){
-	for( int i = index; i < heap.size() / 2; ){
-		if( i * 2 + 2 == heap.size() ){
-			if( heap[i] > heap[i * 2 + 1] ){
+	// 
+	for( int i = index; i < heap.size() / 2; ){// Keep going down heap and compare to children
+		if( i * 2 + 2 == heap.size() ){// You've reached the bottom
+			if( heap[i] > heap[i * 2 + 1] ){ // If it's bigger, swap
 				int temp = heap[i];
 				heap[i] = heap[i * 2 + 1];
 				heap[i * 2 + 1] = temp;
 			}
 			break;
 		}
+		// You're bigger than one of your children
 		if( heap[i] > heap[i * 2 + 1] || heap[i] > heap[i * 2 + 2] ){
+			// If the left child is smaller, you must swap with him first
 			if( heap[i * 2 + 1] < heap[i * 2 + 2] ){
 				int temp = heap[i];
 				heap[i] = heap[i * 2 + 1];
 				heap[i * 2 + 1] = temp;
-				i = i * 2 + 1;
+				i = i * 2 + 1; // Update i
 			}
-			else{
+			else{ // else swap with right
 				int temp = heap[i];
 				heap[i] = heap[i * 2 + 2];
 				heap[i * 2 + 2] = temp;
-				i = i * 2 + 2;
+				i = i * 2 + 2; // Update i
 			}
 		}
 		else{

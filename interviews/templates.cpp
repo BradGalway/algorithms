@@ -2,8 +2,9 @@
 #include <fstream>
 #include <vector>
 #include <cstdlib>
-
 using namespace std;
+
+// This is just me practicing how to use templates.
 
 template <typename T>
 class ClassTemp {

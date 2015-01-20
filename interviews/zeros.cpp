@@ -5,8 +5,9 @@
 #include <vector>
 #include <string>
 #include <stdlib.h>
-
 using namespace std;
+
+// I think this question was saying, given a matrix of 0's and 1's, wherever there exists a 0, make all values in that row and column 0. There's a ton of optimizations you can do.
 
 void makeZeros( vector< vector< int > > &matrix, int row, int column ){
 	for( int i = 0; i < matrix.size(); i++ ){

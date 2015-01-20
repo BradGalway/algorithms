@@ -7,10 +7,13 @@ using namespace std;
 
 
 int main() {
+    // I think the problem was you were given a string that was either a palindrome
+    // or if you removed one character it would become one. Print out which character
+    // would make it a palindrome if removed.
     /* Enter your code here. Read input from STDIN. Print output to STDOUT */
     // Thought process: assume a palindrome. Start from the middle, and continue
     // going outwards until we find the character that violates it being a palindrome
-    
+     
     int tests = 0;
     cin >> tests;
     string s;

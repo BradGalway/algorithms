@@ -1,8 +1,10 @@
 #include <iostream>
 #include <fstream>
 #include <vector>
-
 using namespace std;
+
+// This problem was a huge pain in the neck that I don't think I even finished.
+// Write merge sort that uses linked lists.
 
 struct LinkedList {
 	int head;

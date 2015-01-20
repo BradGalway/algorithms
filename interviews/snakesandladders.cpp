@@ -7,6 +7,8 @@
 #include <queue>
 using namespace std;
 
+// Unfinished. The problem was, given a unique board of snakes and ladders, if you had complete control of the dice, what's the fastest way you could get from 1 to 100?
+
 int stringToInt( string s ){
     int num = 0;
     for( int i = s.length() - 1, base = 1; i >= 0; i--, base *= 10 ){
